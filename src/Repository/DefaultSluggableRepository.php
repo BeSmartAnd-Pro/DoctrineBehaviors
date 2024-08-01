@@ -6,6 +6,8 @@ namespace Knp\DoctrineBehaviors\Repository;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\DoctrineBehaviors\Contract\Entity\SluggableInterface;
+use function sprintf;
+use function str_replace;
 
 final class DefaultSluggableRepository
 {
@@ -32,10 +34,10 @@ final class DefaultSluggableRepository
                 continue;
             }
 
-            $normalizedField = \str_replace('.', '_', $field);
+            $normalizedField = str_replace('.', '_', $field);
 
             $queryBuilder
-                ->andWhere(\sprintf('e.%s != :%s', $field, $normalizedField))
+                ->andWhere(sprintf('e.%s != :%s', $field, $normalizedField))
                 ->setParameter($normalizedField, $value);
         }
 

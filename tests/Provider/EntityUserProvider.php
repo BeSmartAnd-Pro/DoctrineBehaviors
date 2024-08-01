@@ -31,6 +31,7 @@ final class EntityUserProvider implements UserProviderInterface
             $this->userEntity = $this->userEntities[$userName];
         } else {
             $errorMessage = sprintf('User with %s name was not found. Add it first.', $userName);
+            
             throw new ShouldNotHappenException($errorMessage);
         }
     }
@@ -40,7 +41,7 @@ final class EntityUserProvider implements UserProviderInterface
         $this->userEntities[$name] = $userEntity;
     }
 
-    public function provideUser()
+    public function provideUser(): UserEntity
     {
         $this->prepareUserEntities();
 

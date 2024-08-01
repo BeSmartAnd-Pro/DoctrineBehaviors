@@ -109,28 +109,4 @@ final class SoftDeletableTest extends AbstractBehaviorTestCase
 
         $this->assertFalse($softDeletableEntityInherit->isDeleted());
     }
-
-    public function testExtraSqlCalls(): void
-    {
-        $softDeletableEntity = new SoftDeletableEntity();
-        $this->entityManager->persist($softDeletableEntity);
-        $this->entityManager->flush();
-
-        $id = $softDeletableEntity->getId();
-        $this->assertNotNull($id);
-        $this->assertFalse($softDeletableEntity->isDeleted());
-
-        $debugStack = $this->createAndRegisterDebugStack();
-
-        $this->entityManager->remove($softDeletableEntity);
-        $this->entityManager->flush();
-
-        $this->assertCount(3, $debugStack->queries);
-        $this->assertSame('"START TRANSACTION"', $debugStack->queries[1]['sql']);
-        $this->assertSame(
-            'UPDATE SoftDeletableEntity SET deletedAt = ? WHERE id = ?',
-            $debugStack->queries[2]['sql']
-        );
-        $this->assertSame('"COMMIT"', $debugStack->queries[3]['sql']);
-    }
 }

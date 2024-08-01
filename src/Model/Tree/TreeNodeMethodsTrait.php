@@ -116,6 +116,7 @@ trait TreeNodeMethodsTrait
     public function setChildNodeOf(?TreeNodeInterface $treeNode = null): void
     {
         $id = $this->getNodeId();
+        
         if ($id === '' || $id === null) {
             throw new TreeException('You must provide an id for this node if you want it to be part of a tree.');
         }
@@ -124,11 +125,9 @@ trait TreeNodeMethodsTrait
             ? rtrim($treeNode->getRealMaterializedPath(), static::getMaterializedPathSeparator())
             : static::getMaterializedPathSeparator();
         $this->setMaterializedPath($path);
-
-        if ($this->parentNode !== null) {
-            $this->parentNode->getChildNodes()
-                ->removeElement($this);
-        }
+        
+        $this->parentNode?->getChildNodes()
+            ->removeElement($this);
 
         $this->parentNode = $treeNode;
 

@@ -11,6 +11,7 @@ trait LoggableTrait
     public function getUpdateLogMessage(array $changeSets = []): string
     {
         $message = [];
+        
         foreach ($changeSets as $property => $changeSet) {
             $itemCount = count($changeSet);
 

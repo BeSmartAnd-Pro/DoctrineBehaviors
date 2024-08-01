@@ -59,6 +59,7 @@ trait SoftDeletableMethodsTrait
     private function currentDateTime(): DateTimeInterface
     {
         $dateTime = DateTime::createFromFormat('U.u', sprintf('%.6F', microtime(true)));
+        
         if ($dateTime === false) {
             throw new ShouldNotHappenException();
         }

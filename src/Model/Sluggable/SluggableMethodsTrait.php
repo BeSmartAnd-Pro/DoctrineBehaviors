@@ -29,6 +29,7 @@ trait SluggableMethodsTrait
         }
 
         $values = [];
+        
         foreach ($this->getSluggableFields() as $sluggableField) {
             $values[] = $this->resolveFieldValue($sluggableField);
         }
@@ -54,6 +55,7 @@ trait SluggableMethodsTrait
     private function generateSlugValue(array $values): string
     {
         $usableValues = [];
+        
         foreach ($values as $value) {
             if (! empty($value)) {
                 $usableValues[] = $value;
@@ -92,6 +94,7 @@ trait SluggableMethodsTrait
         }
 
         $methodName = 'get' . ucfirst($field);
+        
         if (method_exists($this, $methodName)) {
             return $this->{$methodName}();
         }

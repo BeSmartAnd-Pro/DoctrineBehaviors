@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Knp\DoctrineBehaviors\Provider;
 
 use Knp\DoctrineBehaviors\Contract\Provider\UserProviderInterface;
-use Symfony\Component\Security\Core\Security;
+use Symfony\Bundle\SecurityBundle\Security;
 
 final class UserProvider implements UserProviderInterface
 {
@@ -18,8 +18,10 @@ final class UserProvider implements UserProviderInterface
     public function provideUser()
     {
         $token = $this->security->getToken();
+        
         if ($token !== null) {
             $user = $token->getUser();
+            
             if ($this->blameableUserEntity) {
                 if ($user instanceof $this->blameableUserEntity) {
                     return $user;
@@ -35,6 +37,7 @@ final class UserProvider implements UserProviderInterface
     public function provideUserEntity(): ?string
     {
         $user = $this->provideUser();
+        
         if ($user === null) {
             return null;
         }

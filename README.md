@@ -18,7 +18,7 @@ It currently handles:
 ## Install
 
 ```bash
-composer require knplabs/doctrine-behaviors
+composer require besmartand-pro/doctrine-behaviors
 ```
 
 ## Usage

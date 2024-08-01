@@ -234,6 +234,7 @@ trait TranslatableMethodsTrait
 
         if ($fallbackLocale !== null) {
             $translation = $this->findTranslationByLocale($fallbackLocale);
+            
             if ($translation && ! $translation->isEmpty()) {
                 return $translation;
             }
